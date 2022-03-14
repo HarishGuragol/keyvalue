@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Demo App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <form id="Form">
+      <p><label for="key">Key</label>
+      <input type="text" name="key" id="fname"></p>
+
+      <p><label for="value">Value</label>
+      <input type="text" name="val" id="lname"></p>
+
+      <input value="Submit" type="submit" onclick="submitForm()">
+  </form>
+  <button onclick="getData()">Show Stored Data</button>
+  <div id="res" style="display: none;">
+    Stored data: 
+    <p id="data" style="display: inline;"></p>
+  </div>
+  <script>
+    function submitForm(){
+      var formData = JSON.stringify($("#Form").serializeArray());
+      $.ajax({
+        type: "POST",
+        url: "store",
+        data: formData,
+        success: function(){},
+        dataType: "json",
+        contentType : "application/json"
+      });
+    }
+
+    function getData(){
+      $.getJSON("fetch", function(result, status){
+        if (status=='success' && result!=null){
+          var data = document.getElementById("data");
+          data.innerHTML = result;
+          $("#res").show();
+        }
+        else {
+          console.log('Error while fetching data', status)
+        }
+      })
+    }
+  </script>
+  </body>
+</html>
