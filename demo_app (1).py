@@ -25,4 +25,4 @@ def store_data():
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 if __name__=="__main__":
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run()
